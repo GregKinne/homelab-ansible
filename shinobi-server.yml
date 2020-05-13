@@ -38,14 +38,3 @@
            root SQL user: testuser
            Database Installation: y
            start on boot: y
-
-
-         #- name: start the Shinobi Installer
-         #cli_command:
-         #command: "chmod +x /Shinboi/Shinobi/INSTALL/ubuntu.sh && /Shinobi/Shinobi/INSTALL/ubuntu.sh"
-         #prompt:
-         #  - "Shinobi - Do you want to Install MariaDB? Choose No if you already have it"
-         #  - "Password for root SQL user, If you are installing SQL now then you may put anything:"
-         #answer:
-         #  - "Y"
-         # - "testvalue"
