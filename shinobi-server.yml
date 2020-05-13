@@ -1,0 +1,51 @@
+---
+ - name: "Install Shinobi server from source"
+   hosts: localhost
+   connection: local
+   become: yes
+   tasks:
+     - name: Install a list of python package manager
+       apt:
+         name: python-pip
+
+     - pip:
+         executable: pip2
+         name: pexpect
+
+     - name: create shinobi user
+       shell:
+         cmd: "adduser -u 10001 --system shinobiuser --home /Shinobi"
+
+     - name: create shinobi group
+       shell:
+         cmd: "addgroup --system shinobigroup && usermod -aG shinobigroup shinobiuser"
+
+     - name: clone Shinobi-Systems git repository
+       shell: 
+         cmd: "git clone https://gitlab.com/Shinobi-Systems/Shinobi.git Shinobi"
+         chdir: "/Shinobi"
+
+     - name: make the Shinobi install script executable
+       file: dest=/Shinobi/Shinobi/INSTALL/ubuntu.sh mode=a+x
+
+     - name: install Shinobi and give responses
+       expect:
+         echo: yes
+         command: "/Shinobi/Shinobi/INSTALL/ubuntu.sh"
+         timeout: 100
+         responses:
+           Install MariaDB: y
+           root SQL user: testuser
+           Database Installation: y
+           start on boot: y
+
+
+         #- name: start the Shinobi Installer
+         #cli_command:
+         #command: "chmod +x /Shinboi/Shinobi/INSTALL/ubuntu.sh && /Shinobi/Shinobi/INSTALL/ubuntu.sh"
+         #prompt:
+         #  - "Shinobi - Do you want to Install MariaDB? Choose No if you already have it"
+         #  - "Password for root SQL user, If you are installing SQL now then you may put anything:"
+         #answer:
+         #  - "Y"
+         # - "testvalue"
