@@ -38,3 +38,13 @@
            root SQL user: testuser
            Database Installation: y
            start on boot: y
+
+     - name: set hostname after setup completion
+       shell:
+         cmd: "hostnamectl set-hostname shinobi-server" 
+
+     - name: modify hosts file mapping
+       lineinfile:
+         path: /etc/hosts
+         line: '127.0.0.1   shinobi-server'
+         insertbefore: BOF
