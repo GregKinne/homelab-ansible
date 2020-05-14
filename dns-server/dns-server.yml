@@ -109,12 +109,60 @@
          backup: yes
        tags: admin
 
+     - name: Add cloudflared user 
+       user:
+         name: cloudflared
+         comment: cloudflared user for dns-over-https
+         uid: 10001
+         shell: /usr/sbin/nologin
+         system: yes
+         create_home: no
+
+     - name: Allow execution of cloudflared
+       file:
+         path: /usr/local/bin/cloudflared
+         owner: cloudflared
+         mode: '+x'
+
+     - name: Set cloudflared opts
+       lineinfile:
+         create: yes
+         path: /etc/default/cloudflared
+         regexp: '^CLOUDFLARED_OPTS='
+         line: CLOUDFLARED_OPTS=--port 5053 --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query
+
+     - name: File ownership of etc cloudflared
+       file:
+         path: /etc/default/cloudflared
+         owner: cloudflared
+
+     - name: File ownership of cloudflared bin
+       file:
+         path: /usr/local/bin/cloudflared
+         owner: cloudflared
+
+     - name: copy cloudflared bin to /usr/local/bin
+       copy:
+         src: "/home/ubuntu/homelab-ansible/bin/cloudflared"
+         dest: "/usr/local/bin/cloudflared"
+
+     - name: copy cloudflared systemd .service file
+       copy:
+         src: "/home/ubuntu/homelab-ansible/dns-server/cloudflared.service"
+         dest: "/etc/systemd/system/cloudflared.service"
+
+     - name: enable service httpd and ensure it is not masked
+       systemd:
+         name: cloudflared
+         state: started
+         enabled: yes
+
      - name: 'Reboot'
        shell: sleep 2 && reboot
-       async: 1
-       poll: 0
-       ignore_errors: true
-       tags: pihole
+         async: 1
+         poll: 0
+         ignore_errors: true
+         tags: pihole
 
      - name: "Wait for Raspberry PI to come back"
        local_action: wait_for host={{ ansible_host }} port=22 state=started delay=10
