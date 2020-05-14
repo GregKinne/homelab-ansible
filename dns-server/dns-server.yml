@@ -159,10 +159,10 @@
 
      - name: 'Reboot'
        shell: sleep 2 && reboot
-         async: 1
-         poll: 0
-         ignore_errors: true
-         tags: pihole
+       async: 1
+       poll: 0
+       ignore_errors: true
+       tags: pihole
 
      - name: "Wait for Raspberry PI to come back"
        local_action: wait_for host={{ ansible_host }} port=22 state=started delay=10

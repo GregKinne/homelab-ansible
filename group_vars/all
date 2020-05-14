@@ -24,5 +24,4 @@ ipv4_address: "{{ hostvars[inventory_hostname]['ansible_' + network_interface]['
 ipv6: True
 ipv6_address: "{{ hostvars[inventory_hostname]['ansible_' + network_interface]['ipv6'][0]['address'] }}"
 dns_servers:
-  - "8.8.8.8"
-  - "8.8.4.4"
+  - "127.0.0.1#5053"
