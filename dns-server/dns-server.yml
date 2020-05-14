@@ -40,7 +40,7 @@
 
      - name: "Download Pi-Hole installer"
        get_url:
-           url: httpsgcinstall.pi-hole.net
+           url: https://install.pi-hole.net
            dest: ~/install-pihole.sh
            mode: 0740
        tags: pihole
