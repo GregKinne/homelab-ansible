@@ -1,0 +1,23 @@
+---
+
+- name: Create a symbolic link python
+  file:
+    src: /usr/bin/python3
+    dest: /usr/bin/python
+    owner: ubuntu
+    group: ubuntu
+    state: link
+
+- name: Ensure pip3 present
+  apt:
+    name: python3-pip 
+    state: present
+
+- name: Add ansible repository.
+  apt_repository: repo='ppa:ansible/ansible'
+
+- name: Update apt cache.
+  apt: update_cache=yes cache_valid_time=86400
+
+- name: Install Ansible.
+  apt: name=ansible state=installed

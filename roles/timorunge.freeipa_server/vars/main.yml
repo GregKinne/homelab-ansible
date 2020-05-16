@@ -1,0 +1,17 @@
+---
+
+# List of the required pip packages
+# Type: List
+freeipa_server_pip_pkgs:
+  - custodia
+  - ipapython
+  - jwcrypto
+  - pyasn1-modules
+  - pyopenssl
+  - python-ldap
+
+# List of supported types installation of FreeIPA server
+# Type: List
+freeipa_server_supported_types:
+  - master
+  - replica

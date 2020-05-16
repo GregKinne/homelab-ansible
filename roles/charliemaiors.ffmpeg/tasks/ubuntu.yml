@@ -1,0 +1,25 @@
+---
+- name: install prerequisites for add-apt-repo
+  become: true
+  apt:
+    update_cache: true
+    name: software-properties-common
+    state: present
+- name: add ffmpeg ppa
+  become: true
+  apt_repository:
+    repo: "{{ ubuntu_1614_ppa }}"
+  when: ansible_distribution_version != '18.04'
+- name: install libav-tools on other lts
+  become: true
+  apt:
+    update_cache: true
+    name: libav-tools
+    state: present
+  when: ansible_distribution_version != '18.04'
+- name: install ffmpeg and related codecs
+  become: true
+  apt:
+    update_cache: true
+    name: ["ffmpeg", "x264", "x265"]
+    state: present

@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  author: Carlo Maiorano
+  description: Deploy Mariadb and define Shinobi CCTV schemas.
+  company: Unibo
+
+  license: GNU GPL
+
+  min_ansible_version: 2.0
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+    - name: EL
+      versions:
+        - 7
+    - name: Archlinux
+      versions:
+        - all
+
+  galaxy_tags:
+    - mariadb
+    - shinobi
+
+dependencies: []

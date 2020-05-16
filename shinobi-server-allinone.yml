@@ -1,0 +1,19 @@
+- name: Deploy Shinobi on Single host
+  hosts: shinobi-allinone
+  vars:
+    shinobi_pass: "shinobi-test-machine"
+    db_host: "localhost"
+    shinobi_port: "8080"
+    user_pass: "shinobi-test"
+    user_mail: "ccio@m03a.ca"
+    dbhash: "sha256"
+    startup: true
+    ce: false
+    pro: true
+    lts: true
+  roles:
+    - charliemaiors.nodejs
+    - charliemaiors.ffmpeg
+    - charliemaiors.shinobi_db
+    - charliemaiors.shinobi
+

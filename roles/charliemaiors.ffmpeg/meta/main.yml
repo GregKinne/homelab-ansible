@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  author: Carlo Maiorano
+  description: FFMPEG installation role, valid on Ubuntu, CentOS, Archlinux
+  company: Unibo
+
+  license: GNU GPL
+
+  min_ansible_version: 2.0
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+    - name: EL
+      versions:
+        - 7
+    - name: Archlinux
+      versions:
+        - all
+
+  galaxy_tags:
+    - ffmpeg
+
+dependencies: []
+

@@ -1,0 +1,38 @@
+---
+     - name: Install python package manager
+       apt:
+         name: python3-pip
+
+     - pip:
+         executable: pip3
+         name: pexpect
+
+     - git:
+         repo: "https://gitlab.com/Shinobi-Systems/Shinobi.git"
+         dest: ~/Shinobi
+         update: yes
+         force: yes
+
+     - name: make the Shinobi install script executable
+       file: dest=~/Shinobi/INSTALL/ubuntu.sh mode=a+x
+
+     - name: install Shinobi and give responses
+       expect:
+         echo: yes
+         command: ~/Shinobi/INSTALL/ubuntu.sh
+         timeout: 300
+         responses:
+           Install MariaDB: y
+           root SQL user: testuser
+           Database Installation: y
+           start on boot: y
+
+     - name: set hostname after setup completion
+       shell:
+         cmd: "hostnamectl set-hostname shinobi-server" 
+
+     - name: modify hosts file mapping
+       lineinfile:
+         path: /etc/hosts
+         line: '127.0.0.1   shinobi-server'
+         state: present 

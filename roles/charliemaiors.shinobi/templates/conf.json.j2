@@ -1,0 +1,37 @@
+{
+  "port": {{ shinobi_port }},
+  "addStorage": [
+      {"name":"second","path":"__DIR__/videos2"}
+  ],
+  {% if ((cluster ~ '').lower() == "true" and cluster_role == "master") or ((cluster ~ '').lower() == "false") %}}
+  "passwordType": "{{ dbhash }}",
+  "db": {
+    "host": "{{ db_host }}",
+    "user": "{{ shinobi_user }}",
+    "password": "{{ shinobi_pass }}",
+    "database": "ccio",
+    "port":3306
+  },
+  {% endif %}
+  {% if (cluster ~ '').lower() == "true" %}
+    {% if cluster_role == "master" %}
+    "childNodes": {
+      "enabled" : true,
+      "mode" : "master",
+      "port" : {{ master_port }},
+      "key" : "{{ master_key }}"
+    },
+    {% elif cluster_role == "child" %}
+    "childNodes": {
+        "enabled" : true,
+        "mode" : "child",
+        "host" : "{{ master_ip }}:{{ master_port }}",
+        "key" : "{{ master_key }}"
+    },
+    {% endif %}
+  {% endif %}
+  "cron":{
+      "key":"{{ random_key }}"
+  },
+  "pluginKeys":{}
+}

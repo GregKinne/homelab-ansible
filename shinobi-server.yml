@@ -1,0 +1,6 @@
+- hosts: shinobi  
+  remote_user: ubuntu
+
+  roles:
+    - pi-bootstrap
+    - shinobi-server

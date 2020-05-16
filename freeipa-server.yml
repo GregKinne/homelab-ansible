@@ -1,0 +1,13 @@
+- hosts: freeipa
+  become: yes
+  vars:
+    freeipa_server_admin_password: Passw0rd
+    freeipa_server_domain: kinne12345.com
+    freeipa_server_ds_password: Passw0rd
+    freeipa_server_fqdn: ipa-master.kinne12345.com
+    freeipa_server_ip: 192.168.1.241
+    freeipa_server_realm: kinne12345.COM
+  roles:
+    - pi-bootstrap
+    - freeipa-bootstrap
+    - timorunge.freeipa_server

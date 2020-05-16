@@ -1,0 +1,10 @@
+---
+- name: Install mariadb ubuntu
+  include_tasks: installation_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+- name: Install mariadb centos
+  include_tasks: installation_centos.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: Install mariadb archlinux
+  include_tasks: installation_arch.yml
+  when: ansible_distribution == 'Archlinux'

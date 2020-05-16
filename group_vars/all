@@ -1,13 +1,6 @@
-ansible_connection: ssh
-ansible_ssh_user: 
-ansible_ssh_pass: 
 
-toplevel_timeservers: ['pool.ntp.org', 'time.google.com']
 
-# Source: https://github.com/fheinle/ansible-pihole/blob/master/defaults/main.yml
-user_pihole: "pihole"
-group_pihole: "pihole"
-
+## Pihole Config
 git_repo_web_interface: "https://github.com/pi-hole/AdminLTE.git"
 git_repo_core: "https://github.com/fheinle/pi-hole.git"
 fspath_web_interface: "/var/www/admin"
@@ -16,6 +9,13 @@ fspath_pihole: "/opt/pihole"
 fspath_pihole_src: "/etc/.pihole"
 fspath_pihole_config: "/etc/pihole"
 
+toplevel_timeservers: ['pool.ntp.org', 'time.google.com']
+
+# Source: https://github.com/fheinle/ansible-pihole/blob/master/defaults/main.yml
+user_pihole: "pihole"
+group_pihole: "pihole"
+
+## Pihole Setup Network Info
 gateway_ip: 192.168.1.1
 network_interface: eth0
 ipv4_static: True
